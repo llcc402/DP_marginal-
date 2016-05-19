@@ -1,6 +1,6 @@
 % Output:
 %     ix         a vector. Its length is the number of the observations.
-function centers = DP_marginal(data, alpha, sigma_0, sigma_1, maxIter)
+function ix = DP_marginal(data, alpha, sigma_1, maxIter)
 if nargin < 2
     alpha = 1;
 end
@@ -9,9 +9,6 @@ if nargin < 3
 end
 if nargin < 4
     sigma_1 = 4;
-end
-if nargin < 5
-    maxIter = 500;
 end
 
 % init all observations to be in the same cluster
@@ -34,21 +31,7 @@ for iter = 1:maxIter
             if j <= size(tb, 1)
                 probs(j) = tb(j,2) * normpdf(data(i), 0, sigma_1);
             else
-                probs(j) = alpha / 2 / pi * exp(-1/2 * data(i)^2 * (2 * sigma_0^2 + 1) / (sigma_0^2 + 1));
-            end 
-        end
-        probs = log(probs);
-        probs = probs - max(probs);
-        probs = exp(probs);
-        probs = probs / sum(probs);
-        [~,~,ix] = histcounts(rand(1), [0, cumsum(probs)]);
-        if ix > size(tb, 1)
-            centers(i) = data(i);
-        else
-            centers(i) = tb(ix);
-        end
-    end
-end
+                probs(j) = alpha / 2 / pi * e^(-1/2 * data(i))
             
 
 
