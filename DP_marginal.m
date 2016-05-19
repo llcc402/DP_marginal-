@@ -32,9 +32,9 @@ for iter = 1:maxIter
         probs = zeros(1, size(tb,1) + 1);
         for j  = 1:size(tb, 1) + 1
             if j <= size(tb, 1)
-                probs(j) = tb(j,2) * normpdf(data(i), 0, sigma_1);
+                probs(j) = tb(j,2) * normpdf(data(i), tb(j,1), sigma_0);
             else
-                probs(j) = alpha / 2 / pi * exp(-1/2 * data(i)^2 * (2 * sigma_0^2 + 1) / (sigma_0^2 + 1));
+                probs(j) = alpha / 2 / pi / sigma_1 * exp(-1/2 * data(i)^2 * (2 * sigma_1^2 + 1) / (sigma_1^2 + 1));
             end 
         end
         probs = log(probs);
@@ -48,6 +48,7 @@ for iter = 1:maxIter
             centers(i) = tb(ix);
         end
     end
+    fprintf(['Iter ', num2str(iter), ' done\n'])
 end
             
 
