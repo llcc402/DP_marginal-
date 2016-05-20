@@ -1,16 +1,16 @@
 % Output:
 %     ix         a vector. Its length is the number of the observations.
-function centers = DP_marginal(data, alpha, sigma_0, sigma_1, maxIter)
+function centers = DP_marginal(data, alpha, maxIter, sigma_0, sigma_1)
 if nargin < 2
     alpha = 1;
 end
-if nargin < 3
+if nargin < 4
     sigma_0 = 1;
 end
-if nargin < 4
+if nargin < 5
     sigma_1 = 4;
 end
-if nargin < 5
+if nargin < 3
     maxIter = 500;
 end
 
@@ -32,7 +32,7 @@ for iter = 1:maxIter
         probs = zeros(1, size(tb,1) + 1);
         for j  = 1:size(tb, 1) + 1
             if j <= size(tb, 1)
-                probs(j) = tb(j,2) * normpdf(data(i), tb, sigma_0);
+                probs(j) = tb(j,2) * normpdf(data(i), tb(j,1), sigma_0);
             else
                 probs(j) = alpha / 2 / pi / sigma_1 * exp(-1/2 * data(i)^2 * (2 * sigma_1^2 + 1) / (sigma_1^2 + 1));
             end 

@@ -1,17 +1,17 @@
 % Output:
 %     ix         a vector. Its length is the number of the observations.
-function centers = DP_marginal(data, alpha, sigma_0, sigma_1, maxIter)
+function centers = DP_marginal(data, alpha, maxIter, sigma_0, sigma_1)
 if nargin < 2
     alpha = 1;
 end
 if nargin < 3
-    sigma_0 = 1;
+    maxIter = 500;
 end
 if nargin < 4
-    sigma_1 = 4;
+    sigma_0 = 1;
 end
 if nargin < 5
-    maxIter = 500;
+    sigma_1 = 4;
 end
 
 % init all observations to be in the same cluster
