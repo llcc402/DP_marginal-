@@ -1,5 +1,7 @@
 # The marginal DP posterior sampler
 
+## Model discription 
+
 1. The model is:
 
                 x_i     \sim   \theta_i,    i = 1,...,n
@@ -8,7 +10,10 @@
 
 2. Given \theta_{1:n-1} and x_{1:n}, the probability of \theta_n is 
 
-    p(d\theta_n \in d\theta) = \alpha N(d\theta|0,3)f(x_i|\theta_i) + \sum n_i delta_{\theta_j^*}(d\theta)
+    p(d\theta_n \in d\theta) = \alpha N(d\theta|0,3)f(x_i|\theta_i) + \sum n_i delta_{\theta_j^*}(d\theta)f(x_i|\theta_i)
 
 3. Using the above equation for the update of \theta_n directly is slow. The reason is that there are a group of observations attached to the same \theta_j^* but the algorithm can only move these \theta_i (attaching to \theta_j^*) one by one. 
 
+## Example
+
+1. Run main.m to find the mean of the two clusters are -4 and 4 but the detected centsers are in the interval (-3, 3).
